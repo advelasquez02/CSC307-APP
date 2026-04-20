@@ -15,16 +15,18 @@ function MyApp() {
   </div>
 );
 
-function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
+function removeOneCharacter(person) {
+  deleteUser(person.id)
+    .then((response) => {
+      if (response.status === 204) {
+        setCharacters(characters.filter((character) => character.id !== person.id));
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
-    setCharacters(updated);
-  }
-
-  function updateList(person) {
-  setCharacters([...characters, person]);
 }
+
 
 function fetchUsers() {
   const promise = fetch("http://localhost:8000/users");
@@ -41,7 +43,7 @@ useEffect(() => {
 }, []);
 
 function postUser(person) {
-  const promise = fetch("Http://localhost:8000/users", {
+  const promise = fetch("http://localhost:8000/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -65,6 +67,13 @@ function updateList(person) {
     .catch((error) => {
       console.log(error);
     });
+}
+
+function deleteUser(id) {
+  const promise = fetch(`http://localhost:8000/users/${id}`, {
+    method: "DELETE",
+  });
+  return promise;
 }
 
 

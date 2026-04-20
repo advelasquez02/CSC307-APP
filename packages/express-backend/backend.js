@@ -91,7 +91,7 @@ const addUser = (user) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  userToAdd.id = Math.random();
+  userToAdd.id = Math.random().toString();
   addUser(userToAdd);
   res.status(201).send(userToAdd)
 });
@@ -99,7 +99,7 @@ app.post("/users", (req, res) => {
 //my own task 1.
 app.delete("/users/:id", (req, res) => {
   const id = req.params.id;
-  const index = users.users_list.findIndex((user) => user.id === id);
+  const index = users.users_list.findIndex((user) => String(user.id) === id);
   
   if (index === -1) {
     res.status(404).send("User not found.");
