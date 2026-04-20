@@ -56,8 +56,11 @@ function updateList(person) {
   postUser(person)
     .then((response) => {
       if (response.status === 201) {
-      setCharacters([...characters, person]);
+        return response.json(); 
       }
+    })
+    .then((newUser) => {
+      setCharacters([...characters, newUser]);
     })
     .catch((error) => {
       console.log(error);

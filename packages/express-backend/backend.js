@@ -93,7 +93,7 @@ app.post("/users", (req, res) => {
   const userToAdd = req.body;
   userToAdd.id = Math.random();
   addUser(userToAdd);
-  res.sendStatus(201)
+  res.status(201).send(userToAdd)
 });
 
 //my own task 1.
