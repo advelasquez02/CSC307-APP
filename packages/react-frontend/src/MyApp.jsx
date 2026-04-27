@@ -19,7 +19,7 @@ function removeOneCharacter(person) {
   deleteUser(person.id)
     .then((response) => {
       if (response.status === 204) {
-        setCharacters(characters.filter((character) => character.id !== person.id));
+        setCharacters(characters.filter((character) => character._id !== person._id));
       }
     })
     .catch((error) => {
